@@ -1,0 +1,14 @@
+name: PR to Wiki
+on:
+  pull_request:
+    types: [closed]
+    branches: [main, master]
+concurrency:
+  group: pr-to-wiki
+  cancel-in-progress: false
+jobs:
+  notify-wiki:
+    if: github.event.pull_request.merged == true
+    uses: sosafeapp/shared-workflows/.github/workflows/pr-to-wiki.yml@v1
+    secrets:
+      ANTHROPIC_TOKEN: ${{ secrets.ANTHROPIC_TOKEN }}
